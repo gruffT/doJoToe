@@ -1,14 +1,18 @@
-import { Button } from '@mui/material';
+import GridContextProvider from 'GameGrid/GridContext';
 import React from 'react';
-
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { Status } from 'Status/Status';
+import StatusContextProvider from './Status/StatusContext';
+import { GameGrid } from './GameGrid/GameGrid';
+import { Reset } from './Reset/Reset';
 
 export const App: React.FC<{}> = () => (
-  <div>
-    <Button variant="contained" color="primary">
-      <AccountCircleIcon />
-      {' '}
-      Hello World
-    </Button>
-  </div>
+  <StatusContextProvider>
+    <GridContextProvider>
+      <div className="gameContainer">
+        <Status />
+        <GameGrid />
+        <Reset />
+      </div>
+    </GridContextProvider>
+  </StatusContextProvider>
 );

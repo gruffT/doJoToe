@@ -16,6 +16,7 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'react/jsx-filename-extension': ['error', { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
     'react/function-component-definition': 'off',
+    'no-plusplus': 'off',
   },
   overrides: [
     {
