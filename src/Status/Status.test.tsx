@@ -7,6 +7,7 @@ import { StatusContext } from './StatusContext';
 describe('Status', () => {
   it('should render status message based status provider value', () => {
     render(
+      // eslint-disable-next-line react/jsx-no-constructed-context-values
       <StatusContext.Provider value={[NEXT_PLAYER_O, jest.fn()]}>
         <Status />
       </StatusContext.Provider>,
