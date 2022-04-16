@@ -5,9 +5,9 @@ export type StatusParams = {};
 
 export const Status:FC<StatusParams> = () => (
   <StatusContext.Consumer>
-    {([status]) => (
+    {(statusContext) => (
       <div className="status">
-        {status}
+        {statusContext![0]}
       </div>
     )}
   </StatusContext.Consumer>
