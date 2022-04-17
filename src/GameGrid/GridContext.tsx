@@ -7,8 +7,11 @@ export const GridContext = React.createContext<Grid | null>([]);
 
 const GridContextProvider: FC<ReactNode> = ({ children }) => {
   // eslint-disable-next-line react/jsx-no-constructed-context-values
-  const grid = new Array(9);
-  grid.fill(useState<SquareValue>());
+  const grid = [];
+  for (let i = 0; i < 9; i++) {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    grid.push(useState<SquareValue>());
+  }
   return (
     <GridContext.Provider value={grid}>
       {children}
