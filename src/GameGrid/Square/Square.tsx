@@ -1,7 +1,9 @@
 import React, { FC, useContext } from 'react';
 import { Button } from '@mui/material';
 import { StatusContext } from '../../Status/StatusContext';
-import { NEXT_PLAYER_X, NEXT_PLAYER_O } from '../../Status/Statuses';
+import {
+  NEXT_PLAYER_X, NEXT_PLAYER_O, TIE, WINNER_X, WINNER_O,
+} from '../../Status/Statuses';
 
 export const VALUE_X = 'X';
 export const VALUE_O = 'O';
@@ -27,5 +29,28 @@ export const Square:FC<SquareParams> = ({ value, setValue }) => {
         break;
     }
   };
-  return <Button title="square" variant="outlined" size="large" sx={{ width: '100%', fontSize: 30 }} onClick={() => processClick()}>{value || '-'}</Button>;
+  const variant = !(status === WINNER_X || status === WINNER_O || status === TIE) ? 'outlined' : 'contained';
+  let color: 'success' | 'error' | 'primary';
+  switch (value) {
+    case VALUE_X:
+      color = 'success';
+      break;
+    case VALUE_O:
+      color = 'error';
+      break;
+    default:
+      color = 'primary';
+  }
+  return (
+    <Button
+      title="square"
+      variant={variant}
+      color={color}
+      size="large"
+      sx={{ width: '100%', fontSize: 30 }}
+      onClick={() => processClick()}
+    >
+      {value || '-'}
+    </Button>
+  );
 };
