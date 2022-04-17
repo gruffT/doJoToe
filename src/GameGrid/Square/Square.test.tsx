@@ -10,7 +10,7 @@ describe('Square', () => {
   const TestComponent: FC<{ value: 'X' | 'O' | undefined }> = ({ value }) => (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
     <StatusContext.Provider value={[NEXT_PLAYER_X, setStatus]}>
-      <Square value={value} setState={setState} />
+      <Square value={value} setValue={setState} />
     </StatusContext.Provider>
   );
 

@@ -31,7 +31,7 @@ export const GameGrid:FC<GameGridParams> = () => {
     <Grid container spacing={2} justifyContent="center" alignContent="center" sx={{ padding: 10 }} data-testid="gameGrid">
       {grid!.map(([squareValue, setSquareValue]) => (
         <Grid item xs={4} key={squareCount++}>
-          <Square value={squareValue} setState={setSquareValue} />
+          <Square value={squareValue} setValue={setSquareValue} />
         </Grid>
       ))}
     </Grid>

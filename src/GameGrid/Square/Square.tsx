@@ -9,19 +9,19 @@ export type SquareValue = 'X' | 'O' | undefined;
 
 export type SquareParams = {
   value: SquareValue;
-  setState: React.Dispatch<React.SetStateAction<SquareValue>>;
+  setValue: React.Dispatch<React.SetStateAction<SquareValue>>;
 };
 
-export const Square:FC<SquareParams> = ({ value, setState }) => {
+export const Square:FC<SquareParams> = ({ value, setValue }) => {
   const status = useContext(StatusContext)![0];
   const processClick = () => {
     if (value) return;
     switch (status) {
       case NEXT_PLAYER_X:
-        setState(VALUE_X);
+        setValue(VALUE_X);
         break;
       case NEXT_PLAYER_O:
-        setState(VALUE_O);
+        setValue(VALUE_O);
         break;
       default:
         break;
