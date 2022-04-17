@@ -1,4 +1,5 @@
 import React, { useEffect, useContext, FC } from 'react';
+import { Grid } from '@mui/material';
 import { Square } from './Square/Square';
 import { StatusContext } from '../Status/StatusContext';
 import { GridContext } from './GridContext';
@@ -27,12 +28,12 @@ export const GameGrid:FC<GameGridParams> = () => {
   }, [grid, setStatus]);
   let squareCount = 0;
   return (
-    <div className="gridContainer">
-      <div data-testid="gameGrid" className="grid">
-        {grid!.map(([squareValue, setSquareValue]) => (
-          <Square value={squareValue} setState={setSquareValue} key={squareCount++} />
-        ))}
-      </div>
-    </div>
+    <Grid container spacing={2} justifyContent="center" alignContent="center" sx={{ padding: 10 }} data-testid="gameGrid">
+      {grid!.map(([squareValue, setSquareValue]) => (
+        <Grid item xs={4} key={squareCount++}>
+          <Square value={squareValue} setState={setSquareValue} />
+        </Grid>
+      ))}
+    </Grid>
   );
 };

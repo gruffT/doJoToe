@@ -27,5 +27,5 @@ export const Square:FC<SquareParams> = ({ value, setState }) => {
         break;
     }
   };
-  return <Button title="square" className="square" onClick={() => processClick()}>{value}</Button>;
+  return <Button title="square" variant="outlined" size="large" sx={{ width: '100%', fontSize: 30 }} onClick={() => processClick()}>{value || '-'}</Button>;
 };

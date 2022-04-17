@@ -1,4 +1,5 @@
 import React, { FC, useContext } from 'react';
+import { Button } from '@mui/material';
 import { GridContext } from '../GameGrid/GridContext';
 import { StatusContext } from '../Status/StatusContext';
 
@@ -13,8 +14,6 @@ export const Reset:FC = () => {
     });
   };
   return (
-    <div>
-      <input type="button" className="reset" data-testid="reset" value="Reset" onClick={() => handleClick()} />
-    </div>
+    <Button size="large" data-testid="reset" variant="outlined" onClick={() => handleClick()}>Reset</Button>
   );
 };
