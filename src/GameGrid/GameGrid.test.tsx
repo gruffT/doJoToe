@@ -1,28 +1,27 @@
-import React from 'react';
+import React, {Dispatch, SetStateAction} from 'react';
 import { render, screen } from '@testing-library/react';
 import { GameGrid } from './GameGrid';
-import { Grid, GridContext } from './GridContext';
+import {emptyGridFactory, Grid, GridContext} from './GridContext';
 import { StatusContext } from '../Status/StatusContext';
 import {
   NEXT_PLAYER_O, NEXT_PLAYER_X, WINNER_O, WINNER_X, TIE,
 } from '../Status/Statuses';
 import { checkForWinner } from './WinnerCheck';
+import { SquareValue } from './Square/Square';
 
 jest.mock('./WinnerCheck');
 
 describe('GameGrid', () => {
   const mockCheckForWinner = jest.mocked(checkForWinner);
   const setStatus = jest.fn();
+  const grid: Grid = emptyGridFactory();
+  const setGrid = jest.fn();
+  const gridContextValue: [Grid, Dispatch<SetStateAction<Grid>>] = [grid, setGrid];
   const renderGrid = async (status: string) => {
-    // eslint-disable-next-line react/jsx-no-constructed-context-values
-    const grid: Grid = [];
-    for (let i = 0; i < 9; i++) {
-      grid[i] = [undefined, jest.fn()];
-    }
     render(
       // eslint-disable-next-line react/jsx-no-constructed-context-values
       <StatusContext.Provider value={[status, setStatus]}>
-        <GridContext.Provider value={grid}>
+        <GridContext.Provider value={gridContextValue}>
           <GameGrid />
         </GridContext.Provider>
       </StatusContext.Provider>,

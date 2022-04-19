@@ -1,19 +1,19 @@
-import React, { FC, ReactNode, useState } from 'react';
+import React, {
+  Dispatch, FC, ReactNode, SetStateAction, useState,
+} from 'react';
 import { SquareValue } from './Square/Square';
 
-export type Grid = [SquareValue, React.Dispatch<React.SetStateAction<SquareValue>>][];
+export type Grid = SquareValue[];
 
-export const GridContext = React.createContext<Grid | null>([]);
+export const emptyGridFactory = () => new Array<SquareValue>(9).fill(undefined);
+const emptyGrid = emptyGridFactory();
+
+export const GridContext = React.createContext<[Grid | null, Dispatch<SetStateAction<Grid>>]>([null, () => {}]);
 
 const GridContextProvider: FC<ReactNode> = ({ children }) => {
-  // eslint-disable-next-line react/jsx-no-constructed-context-values
-  const grid = [];
-  for (let i = 0; i < 9; i++) {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    grid.push(useState<SquareValue>());
-  }
+  const gridState = useState(emptyGrid);
   return (
-    <GridContext.Provider value={grid}>
+    <GridContext.Provider value={gridState}>
       {children}
     </GridContext.Provider>
   );

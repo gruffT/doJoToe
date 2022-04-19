@@ -1,24 +1,23 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { Reset } from './Reset';
 import { StatusContext } from '../Status/StatusContext';
-import { GridContext } from '../GameGrid/GridContext';
-import { WINNER_X, INIT, VALUE_X } from '../Status/Statuses';
+import {emptyGridFactory, Grid, GridContext} from '../GameGrid/GridContext';
+import { INIT, VALUE_X } from '../Status/Statuses';
 
 describe('Reset', () => {
   it('should reset Grid state and game status to initial state on click', () => {
     const setStatus = jest.fn();
     const setGridValue = jest.fn();
+    const gridContextValue = [[
+      VALUE_X, undefined, VALUE_X,
+      undefined, VALUE_X, undefined,
+      VALUE_X, undefined, VALUE_X,
+    ], setGridValue] as [Grid, Dispatch<SetStateAction<Grid>>];
+    const statusContextValue = ['Winner X', setStatus] as [string | undefined, Dispatch<SetStateAction<string | undefined>>];
     render(
-      // eslint-disable-next-line react/jsx-no-constructed-context-values
-      <GridContext.Provider value={[
-        [VALUE_X, setGridValue], [undefined, setGridValue], [VALUE_X, setGridValue],
-        [undefined, setGridValue], [VALUE_X, setGridValue], [undefined, setGridValue],
-        [VALUE_X, setGridValue], [undefined, setGridValue], [VALUE_X, setGridValue],
-      ]}
-      >
-        {/* eslint-disable-next-line react/jsx-no-constructed-context-values */}
-        <StatusContext.Provider value={[WINNER_X, setStatus]}>
+      <GridContext.Provider value={gridContextValue}>
+        <StatusContext.Provider value={statusContextValue}>
           <Reset />
         </StatusContext.Provider>
       </GridContext.Provider>,
@@ -26,7 +25,7 @@ describe('Reset', () => {
     fireEvent.click(screen.getByText('Reset'));
     expect(setStatus).toHaveBeenCalledTimes(1);
     expect(setStatus).toHaveBeenCalledWith(INIT);
-    expect(setGridValue).toHaveBeenCalledTimes(9);
-    expect(setGridValue).toHaveBeenCalledWith(undefined);
+    expect(setGridValue).toHaveBeenCalledTimes(1);
+    expect(setGridValue).toHaveBeenCalledWith(emptyGridFactory());
   });
 });

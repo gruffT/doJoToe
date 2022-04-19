@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, FC } from 'react';
 import { Grid } from '@mui/material';
-import { Square } from './Square/Square';
+import { Square, SquareValue } from './Square/Square';
 import { StatusContext } from '../Status/StatusContext';
 import { GridContext } from './GridContext';
 import { checkForWinner } from './WinnerCheck';
@@ -12,9 +12,9 @@ export type GameGridParams = {};
 
 export const GameGrid:FC<GameGridParams> = () => {
   const setStatus = useContext(StatusContext)![1];
-  const grid = useContext(GridContext);
+  const [grid, setGrid] = useContext(GridContext);
   useEffect(() => {
-    const result = checkForWinner(grid!.map(([value]) => value));
+    const result = checkForWinner(grid!);
     switch (result) {
       case WINNER_X:
       case WINNER_O:
@@ -26,12 +26,12 @@ export const GameGrid:FC<GameGridParams> = () => {
         break;
     }
   }, [grid, setStatus]);
-  let squareCount = 0;
+  let squareIndex = 0;
   return (
     <Grid container spacing={2} justifyContent="center" alignContent="center" sx={{ padding: 10 }} data-testid="gameGrid">
-      {grid!.map(([squareValue, setSquareValue]) => (
-        <Grid item xs={4} key={squareCount++}>
-          <Square value={squareValue} setValue={setSquareValue} />
+      {grid?.map((value: SquareValue, index: number) => (
+        <Grid item xs={4} key={squareIndex++}>
+          <Square grid={grid} setGrid={setGrid} gridIndex={index} />
         </Grid>
       ))}
     </Grid>

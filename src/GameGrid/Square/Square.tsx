@@ -10,20 +10,24 @@ export const VALUE_O = 'O';
 export type SquareValue = 'X' | 'O' | undefined;
 
 export type SquareParams = {
-  value: SquareValue;
-  setValue: React.Dispatch<React.SetStateAction<SquareValue>>;
+  grid: SquareValue[];
+  setGrid: React.Dispatch<React.SetStateAction<SquareValue[]>>;
+  gridIndex: number;
 };
 
-export const Square:FC<SquareParams> = ({ value, setValue }) => {
+export const Square:FC<SquareParams> = ({ grid, setGrid, gridIndex }) => {
   const status = useContext(StatusContext)![0];
   const processClick = () => {
-    if (value) return;
+    if (grid[gridIndex]) return;
+    const newGrid = grid.slice();
     switch (status) {
       case NEXT_PLAYER_X:
-        setValue(VALUE_X);
+        newGrid[gridIndex] = VALUE_X;
+        setGrid(newGrid);
         break;
       case NEXT_PLAYER_O:
-        setValue(VALUE_O);
+        newGrid[gridIndex] = VALUE_O;
+        setGrid(newGrid);
         break;
       default:
         break;
@@ -31,7 +35,7 @@ export const Square:FC<SquareParams> = ({ value, setValue }) => {
   };
   const variant = !(status === WINNER_X || status === WINNER_O || status === TIE) ? 'outlined' : 'contained';
   let color: 'success' | 'error' | 'primary';
-  switch (value) {
+  switch (grid[gridIndex]) {
     case VALUE_X:
       color = 'success';
       break;
@@ -50,7 +54,7 @@ export const Square:FC<SquareParams> = ({ value, setValue }) => {
       sx={{ width: '100%', fontSize: 30 }}
       onClick={() => processClick()}
     >
-      {value || '-'}
+      {grid[gridIndex] || '-'}
     </Button>
   );
 };
