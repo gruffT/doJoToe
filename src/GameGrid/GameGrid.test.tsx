@@ -1,13 +1,12 @@
-import React, {Dispatch, SetStateAction} from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { render, screen } from '@testing-library/react';
 import { GameGrid } from './GameGrid';
-import {emptyGridFactory, Grid, GridContext} from './GridContext';
+import { emptyGridFactory, Grid, GridContext } from './GridContext';
 import { StatusContext } from '../Status/StatusContext';
 import {
   NEXT_PLAYER_O, NEXT_PLAYER_X, WINNER_O, WINNER_X, TIE,
 } from '../Status/Statuses';
 import { checkForWinner } from './WinnerCheck';
-import { SquareValue } from './Square/Square';
 
 jest.mock('./WinnerCheck');
 
