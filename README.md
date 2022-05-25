@@ -17,6 +17,9 @@ For even greater admiration, extend this project to allow a human to play the co
 git clone https://github.com/gruffT/doJoToe.git
 cd doJoToe
 ```
+## Set your node version
+``nvm use``
+
 ## Init
 ``yarn install``
 
